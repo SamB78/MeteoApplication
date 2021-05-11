@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.meteoapplication.R" />
+
+        <import type="android.view.View" />
+        <import type="com.example.meteoapplication.utils.Status" />
+
+        <variable
+            name="viewModel"
+            type="com.example.meteoapplication.weatherDisplay.WeatherViewModel" />
+
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".WeatherFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listCities"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:items="@{viewModel.listCitiesToDisplay}"
+            app:layoutId="@{R.layout.city_weather_item_view}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/loading"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:vm="@{viewModel}" />
+
+        <LinearLayout
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.gettingDataStatus == Status.LOADING ? View.VISIBLE : View.GONE }">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.loadingSentence}"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="test" />
+
+                <ProgressBar
+                    android:id="@+id/determinateBar"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:progress="@{viewModel.progress}" />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.gettingDataStatus == Status.LOADING ? View.GONE : View.VISIBLE }">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/recommencer"
+                    android:onClick="@{() -> viewModel.onClickGetData()}"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

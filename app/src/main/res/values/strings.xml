@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Meteo Application</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bienvenue_sur_meteo_application">Bienvenue sur Meteo Application</string>
+    <string name="acc_der_la_m_teo">Accéder à la méteo</string>
+    <string name="temp">%,.2f °C</string>
+    <string name="recommencer">RECOMMENCER</string>
+</resources>
